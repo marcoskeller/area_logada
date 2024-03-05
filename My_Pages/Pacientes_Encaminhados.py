@@ -4,8 +4,10 @@ from streamlit_option_menu import option_menu
 
 import My_Pages.Relatorio_Paciente.Encaminhado_Por_Medico as Medico
 import My_Pages.Relatorio_Paciente.Encaminhado_Por_Praca as Praca
+import My_Pages.Relatorio_Paciente.Encaminhado_Por_Data as Data
 
-#Funcao Para Exibir Cabecalho
+
+
 def inicioPagina():
     logo_teste = Image.open('./Image/logo_oncoclinicas_horiozontal.jpg')
     st.image(logo_teste, use_column_width=True)
@@ -13,9 +15,8 @@ def inicioPagina():
 
 def cabecalhoPagina():
     
-    #3. CSS style definitions
     selected3 = option_menu(None, ["Encaminhados Por Médico", "Encaminhados Por Praça",  "Encaminhados Por Data"], 
-        icons=['bi bi-clipboard2-check-fill', 'bi bi-clock', "bi bi-exclamation-diamond", 'bi bi-calendar-check-fill'], 
+        icons=['bi bi-hospital', 'bi bi-geo-alt', 'bi bi-calendar-check'], 
         menu_icon="cast", default_index=0, orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
@@ -28,7 +29,6 @@ def cabecalhoPagina():
     st.header('Relatório Pacientes Encaminhado(s)')
     return selected3
 
-
 def analisePacienteEncaminhado():
     
     resultado = cabecalhoPagina()
@@ -40,8 +40,7 @@ def analisePacienteEncaminhado():
         Praca.paginaPacienteEncaminhadoPorPraca()
     
     if resultado == "Encaminhados Por Data":
-        print()
-
+        Data.paginaPacienteEncaminhadoPorData()
 
 def paginaPacienteEncaminhado():
     inicioPagina()
