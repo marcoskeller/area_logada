@@ -1,5 +1,5 @@
 # Inclui todos os arquivos de texto
-*.txt
+#*.txt
 
 # Inclui o diretório chamado venv e todos os seus arquivos e subdiretórios
 venv/
