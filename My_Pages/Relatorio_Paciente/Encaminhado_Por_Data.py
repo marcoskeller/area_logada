@@ -50,7 +50,7 @@ def selecaoPorMes(opcao):
         ]
 
         # Exibir o DataFrame filtrado Por Ano
-        st.dataframe(filtroMesAno.astype(str), use_container_width=True)
+        st.dataframe(filtroMesAno.astype(str), use_container_width=True, hide_index=True)
     else:
         print()
 
@@ -59,43 +59,42 @@ def graficoSelecaoPorMes(opcao):
         #Busca os Dados Gerados
         df = gerar_df()
 
-        #dadosUsuario = df
-
         #Seleciona somente as colunas uteis
         colunaUteis = ['Nome do Paciente', 'Data - Hora de abertura','Unidade que recebe paciente encaminhado', 'Nome do Médico', 'CRM','UF do Médico','Quantidade']
-
-             
+         
         #Cria um dataFrame com as colunas uteis
         df = df[colunaUteis] 
 
         dadosUsuario = df
 
         #Filtrando Por Ano
-        #df_filtered["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce',utc=False)
         dadosUsuario["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce', dayfirst=True)
         dadosUsuario['Data - Hora de abertura'] = dadosUsuario['Data - Hora de abertura'].dt.strftime('%Y/%m')
-        #dadosUsuario = dadosUsuario.sort_values("Data - Hora de abertura")
-
-        
 
         # Calcular os Pacientes Encaminhados Por Ano
         city_total = dadosUsuario.groupby("Data - Hora de abertura")[["Quantidade"]].sum().reset_index()
 
+ 
         ##Exibicao dos Graficos
-        #Grafico Barra
-        fig_city = px.bar(city_total, x="Data - Hora de abertura", y="Quantidade",
-        title="Total de pacientes Encaminhados Por Mês Até o Presente")
-        st.plotly_chart(fig_city, use_container_width=True)
+        #Filtros Exibicao dos Nomes dos Pacientes
+        checkbox_mostrar_graficoPizza = st.sidebar.checkbox('Exibir Gráfico Modelo Pizza')
+        checkbox_mostrar_graficoBarra = st.sidebar.checkbox('Exibir Grafico Modela Barra')
 
-        #Grafico Pizza
-        fig_kind = px.pie(city_total, values="Quantidade", names="Data - Hora de abertura",
-        title="Total de pacientes Encaminhados Por Mês Até o Presente")
-    
-        if opcao == "2 - Exibir":
+        if checkbox_mostrar_graficoPizza:
+            #Grafico Pizza
+            fig_kind = px.pie(city_total, values="Quantidade", names="Data - Hora de abertura",
+            title="Total de pacientes Encaminhados Por Mês Até o Presente")
             st.plotly_chart(fig_kind, use_container_width=True)
         
+        if  checkbox_mostrar_graficoBarra:
+            #Grafico Barra
+            fig_city = px.bar(city_total, x="Data - Hora de abertura", y="Quantidade",
+            title="Total de pacientes Encaminhados Por Mês Até o Presente")
+            st.plotly_chart(fig_city, use_container_width=True)
+
         #Filtros Exibicao dos Nomes dos Pacientes
         checkbox_mostrar_tabela = st.sidebar.checkbox('Exibir Nome dos Pacientes Encaminhados')
+
 
         if checkbox_mostrar_tabela:
             #Seleciona somente as colunas uteis
@@ -107,7 +106,7 @@ def graficoSelecaoPorMes(opcao):
             dadosUsuario = df
 
             #Exibicao do Dataframe filtrado
-            st.dataframe(dadosUsuario.astype(str), use_container_width=True) 
+            st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True) 
     else:
         print()
 
@@ -143,7 +142,7 @@ def selecaoPorAno(opcao):
         ]
 
         #Exibicao do Dataframe filtrado
-        st.dataframe(dadosUsuario.astype(str), use_container_width=True)
+        st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True)
     else:
         print()
 
@@ -188,7 +187,7 @@ def graficoSelecaoPorAno(opcao):
             dadosUsuario = df
 
             #Exibicao do Dataframe filtrado
-            st.dataframe(dadosUsuario.astype(str), use_container_width=True) 
+            st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True) 
     else:
         print()
 
