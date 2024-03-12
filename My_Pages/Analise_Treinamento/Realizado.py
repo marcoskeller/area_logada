@@ -4,6 +4,7 @@ import plotly.express as px
 
 
 #Funcao para buscar os dados
+@st.cache_data()
 def gerar_df():
     
     #Configuracao para Acessar os Dados mais rapidos
@@ -138,7 +139,7 @@ def contatoPosTreinamento(contato):
         ]
         
         # Exibir o DataFrame filtrado
-        st.write(dadosUsuario)
+        st.dataframe(dadosUsuario, use_container_width=True, hide_index=True)
         st.write( "Total Médicos Contactados: " , len(dadosUsuario))
 
         #Filtro da Praça dos Medicos Selecionadaos
@@ -161,7 +162,7 @@ def contatoNaoRealizadoPosTreinamento(contato):
 
     #Seleciona somente as colunas uteis
     colunaUteis = ['Nome do Médico', 'Consultor/GO responsável','Praça', 'Data da realização do Treinamento',
-        'Treinamento', 'Objeção para Realizar Parte Administrativa', 'Contato Medico Apos treinamento', 'Onboarding Finalizado', 'Quantidade Realizada']
+        'Treinamento', 'Contato Medico Apos treinamento', 'Onboarding Finalizado', 'Quantidade Realizada']
     
     #Cria um dataFrame com as colunas uteis
     df = df[colunaUteis] 
@@ -180,7 +181,7 @@ def contatoNaoRealizadoPosTreinamento(contato):
         ]
         
         # Exibir o DataFrame filtrado
-        st.write(dadosUsuario)
+        st.dataframe(dadosUsuario, use_container_width=True, hide_index=True)
         st.write( "Total Médico(s) que não foram Contactados Pós Treinamento: " , len(dadosUsuario))
 
         dadosUsuario = df.loc[(

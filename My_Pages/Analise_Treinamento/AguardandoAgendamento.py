@@ -6,6 +6,7 @@ import pandas as pd
 
 
 #Funcao para buscar os dados
+@st.cache_data()
 def gerar_df():
     
     #Configuracao para Acessar os Dados mais rapidos
@@ -57,7 +58,7 @@ def nomeMedicosAguardamAgendamento(opcao):
         ]
         
         # Exibir o DataFrame filtrado
-        st.write(dadosUsuario)
+        st.dataframe(dadosUsuario, use_container_width=True)
     else:
         print()
 
@@ -82,7 +83,7 @@ def quantidadeMedicosAguardamAgendamentoPorPraca(opcao):
     
         qntd_linhas = st.sidebar.slider('Selecione a quantidade de linhas que deseja mostrar na tabela', min_value = 0, max_value = len(df_categoria), step = 1)
 
-        st.write(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'))
+        st.dataframe(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'), use_container_width=True)
         #st.write(dadosUsuario.head(qntd_linhas).style.format(subset = ['Praça']))
 
 

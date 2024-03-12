@@ -122,27 +122,27 @@ def selecaoPorAno(opcao):
         #Cria um dataFrame com as colunas uteis
         df = df[colunaUteis] 
 
-        dadosUsuario = df
+        dadosUsuarioAno = df
 
         #Filtrando Por Ano
         #df_filtered["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce',utc=False)
-        dadosUsuario["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce', dayfirst=True)
-        dadosUsuario['Data - Hora de abertura'] = dadosUsuario['Data - Hora de abertura'].dt.strftime('%Y')
-        dadosUsuario = dadosUsuario.sort_values("Data - Hora de abertura")
+        dadosUsuarioAno["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce', dayfirst=True)
+        dadosUsuarioAno['Data - Hora de abertura'] = dadosUsuarioAno['Data - Hora de abertura'].dt.strftime('%Y')
+        dadosUsuarioAno = dadosUsuarioAno.sort_values("Data - Hora de abertura")
 
 
-        selecioneAno = list(dadosUsuario['Data - Hora de abertura'].unique())
+        selecioneAno = list(dadosUsuarioAno['Data - Hora de abertura'].unique())
         
         st.sidebar.markdown('## Escolha o Ano')
         ano = st.sidebar.selectbox('', options = selecioneAno)
 
         ##Filtro Por Ano Funcionando
-        dadosUsuario = dadosUsuario.loc[(
-            dadosUsuario['Data - Hora de abertura'] == str(ano))
+        dadosUsuarioAno = dadosUsuarioAno.loc[(
+            dadosUsuarioAno['Data - Hora de abertura'] == str(ano))
         ]
 
         #Exibicao do Dataframe filtrado
-        st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True)
+        st.dataframe(dadosUsuarioAno.astype(str), use_container_width=True, hide_index=True)
     else:
         print()
 

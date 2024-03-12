@@ -5,6 +5,7 @@ import pandas as pd
 
 
 #Funcao para buscar os dados
+@st.cache_data()
 def gerar_df():
     
     #Configuracao para Acessar os Dados mais rapidos
@@ -43,7 +44,7 @@ def nomeTodosMedicosAgendados(opcao):
         df = gerar_df()
 
         #Seleciona somente as colunas uteis
-        colunaUteis = ['Nome do Médico', 'Consultor/GO responsável','Praça','Treinamento', 'Quantidade Realizada']
+        colunaUteis = ['Nome do Médico', 'Consultor/GO responsável','Praça','Treinamento']
     
         #Cria um dataFrame com as colunas uteis
         df = df[colunaUteis] 
@@ -55,7 +56,7 @@ def nomeTodosMedicosAgendados(opcao):
         ]
         
         # Exibir o DataFrame filtrado
-        st.write(dadosUsuario)
+        st.dataframe(dadosUsuario, use_container_width=True, hide_index=True)
     else:
         print()
 
@@ -104,7 +105,7 @@ def exibirMedicosAgendadosPorPraca(opcao):
         def mostra_qntd_linhas(df_categoria):
     
             qntd_linhas = st.sidebar.slider('Selecione a quantidade de linhas que deseja mostrar na tabela', min_value = 0, max_value = len(df_categoria), step = 1)
-            st.write(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'))
+            st.dataframe(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'), use_container_width=True, hide_index=True)
 
 
         # filtros para a tabela
