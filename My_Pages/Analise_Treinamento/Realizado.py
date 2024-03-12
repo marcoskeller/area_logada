@@ -72,6 +72,11 @@ def treinamentoRealizadoPorData(data):
 
     dadosUsuario = df
 
+    #Parte que foi modficada
+    dadosUsuario = df.loc[
+        (df['Treinamento'] == "REALIZADO")
+    ]
+
     #Conversao de Data
     dadosUsuario["Data da realização do Treinamento"] = pd.to_datetime(df["Data da realização do Treinamento"], errors='coerce',utc=False)
     dadosUsuario['Data da realização do Treinamento'] = dadosUsuario['Data da realização do Treinamento'].dt.strftime('%b/%Y')
