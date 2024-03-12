@@ -2,9 +2,6 @@ import streamlit as st
 import pandas as pd
 
 
-
-
-
 #Funcao para buscar os dados
 @st.cache_data()
 def gerar_df():
@@ -58,7 +55,7 @@ def nomeMedicosAguardamAgendamento(opcao):
         ]
         
         # Exibir o DataFrame filtrado
-        st.dataframe(dadosUsuario, use_container_width=True)
+        st.dataframe(dadosUsuario, use_container_width=True, hide_index=True)
     else:
         print()
 
@@ -83,23 +80,8 @@ def quantidadeMedicosAguardamAgendamentoPorPraca(opcao):
     
         qntd_linhas = st.sidebar.slider('Selecione a quantidade de linhas que deseja mostrar na tabela', min_value = 0, max_value = len(df_categoria), step = 1)
 
-        st.dataframe(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'), use_container_width=True)
-        #st.write(dadosUsuario.head(qntd_linhas).style.format(subset = ['Praça']))
+        st.dataframe(df_categoria.head(qntd_linhas).style.format(subset = 'Treinamento'), use_container_width=True, hide_index=True)
 
-
-    # função que cria o gráfico
-    # def plot_estoque(dadosUsuario, praca):
-
-    #     dados_plot = dadosUsuario.query('Praça == @praca')
-
-    #     fig, ax = plt.subplots(figsize=(8,6))
-    #     ax = sns.barplot(x = 'Praça', y = 'Quantidade Realizada', data = dados_plot)
-    #     ax.set_title(f'Quantidade de Médicos Aguardando treinamento no Estado')
-    #     ax.set_xlabel('Praça', fontsize = 11)
-    #     ax.tick_params(rotation = 20, axis = 'x')
-    #     ax.set_ylabel('Quantidade', fontsize = 12)
-  
-    #     return fig
 
     if opcao == "2 - SIM":
 
