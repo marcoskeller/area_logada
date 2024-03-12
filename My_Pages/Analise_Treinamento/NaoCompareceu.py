@@ -16,7 +16,7 @@ def gerar_df():
         engine="openpyxl",
         sheet_name="Dados_Onboarding",
         usecols="A:Y",
-        nrows=129
+        nrows=136
 
     )
     return df
