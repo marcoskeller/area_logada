@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
+@st.cache_data()
 def gerar_df():  
     #Configuracao para Acessar os Dados mais rapidos
     #@st.cache_data()

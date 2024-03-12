@@ -5,6 +5,7 @@ import plotly.express as px
 
 
 #Funcao para buscar os dados
+@st.cache_data()
 def gerar_df():
     
     #Configuracao para Acessar os Dados mais rapidos
@@ -48,7 +49,7 @@ def pacienteEncaminhadoPorMedico():
             df_filtered = df[df["Nome do Médico"] == nomeMedico ]
 
             #Exibi o DataFrame que foi filtrado
-            st.dataframe(df_filtered.astype(str), use_container_width=True)
+            st.dataframe(df_filtered.astype(str), use_container_width=True, hide_index=True)
     
     def graficoPorNomeMedico(opcao):
         if opcao == "2 - Exibir":
