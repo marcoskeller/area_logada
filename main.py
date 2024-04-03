@@ -7,7 +7,8 @@ import My_Pages.Relatorio as Relatorio
 
 from bs4 import BeautifulSoup 
 import pathlib 
-import shutil 
+import shutil
+import logging
 
 
 def inject_ga():
@@ -31,6 +32,7 @@ def inject_ga():
 """
     # Insert the script in the head tag of the static template inside your virtual
     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
+    logging.info(f'editing {index_path}')
     soup = BeautifulSoup(index_path.read_text(), features="lxml")
     if not soup.find(id=GA_ID):  # if cannot find tag
         bck_index = index_path.with_suffix('.bck')
