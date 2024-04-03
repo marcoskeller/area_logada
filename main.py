@@ -25,6 +25,18 @@ with st.sidebar:
 
 #Selecionando uma Pagina
 if selected == "Home":
+    google_analytics_js = """
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ1VB0J4PK"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QJ1VB0J4PK');
+        </script>
+    """
+    st.components.v1.html(google_analytics_js)
     PaginaInicial.paginaInicial()
 
 if selected == "Pacientes Encaminhados":
@@ -35,18 +47,7 @@ if selected == "Relatórios":
 
 
 
-google_analytics_js = """
-<!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ1VB0J4PK"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-QJ1VB0J4PK');
-    </script>
-    """
-st.components.v1.html(google_analytics_js)
+
 
 
 
