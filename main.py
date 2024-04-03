@@ -11,11 +11,23 @@ st.set_page_config(
     layout="wide"
 )
 
+st.markdown(
+    """
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ1VB0J4PK"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-QJ1VB0J4PK');
+        </script>
+    """, unsafe_allow_html=True)
+
 #Include Google Analytics tracking code
-with open("./google_analytics.html", "r") as f:
-    html_code = f.read()
-    components.html(html_code, height=0)
-    st.title("")
+# with open("./google_analytics.html", "r") as f:
+#     html_code = f.read()
+#     components.html(html_code, height=0)
+#     st.title("")
 
 #Menu Lateral
 with st.sidebar:
