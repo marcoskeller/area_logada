@@ -35,7 +35,7 @@ def analisePacienteEncaminhado():
     with open("./google_analytics.html", "r") as f:
         html_code = f.read()
         components.html(html_code, height=0)
-        st.title("My Streamlit App")
+        st.title("")
     
     resultado = cabecalhoPagina()
     

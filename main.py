@@ -15,7 +15,7 @@ st.set_page_config(
 with open("./google_analytics.html", "r") as f:
     html_code = f.read()
     components.html(html_code, height=0)
-    st.title("Área Logada")
+    st.title("")
 
 #Menu Lateral
 with st.sidebar:
