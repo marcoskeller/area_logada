@@ -19,15 +19,16 @@ def inject_ga():
     # NOTE: you should add id="google_analytics" value in the GA script
     # https://developers.google.com/analytics/devguides/collection/analyticsjs
     GA_JS = """
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ1VB0J4PK"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-QJ1VB0J4PK');
-        </script>
-        """
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ1VB0J4PK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QJ1VB0J4PK');
+</script>
+"""
     # Insert the script in the head tag of the static template inside your virtual
     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
     soup = BeautifulSoup(index_path.read_text(), features="lxml")
