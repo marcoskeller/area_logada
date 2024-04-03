@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import streamlit.components.v1 as components
 from streamlit_option_menu import option_menu
 
 import My_Pages.Relatorio_Paciente.Encaminhado_Por_Medico as Medico
@@ -30,6 +31,11 @@ def cabecalhoPagina():
     return selected3
 
 def analisePacienteEncaminhado():
+    # Include Google Analytics tracking code
+    with open("./google_analytics.html", "r") as f:
+        html_code = f.read()
+        components.html(html_code, height=0)
+        st.title("My Streamlit App")
     
     resultado = cabecalhoPagina()
     
