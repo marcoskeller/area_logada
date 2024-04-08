@@ -6,12 +6,17 @@ import My_Pages.PaginaInicial as PaginaInicial
 import My_Pages.Relatorio as Relatorio
 
 
-
 #Configuracao do Nome do Site
 st.set_page_config(
     page_title="Área Logada",
     layout="wide"
 )
+
+#Include Google Analytics tracking code
+with open("./google_analytics.html", "r") as f:
+    html_code = f.read()
+    components.html(html_code, height=0)
+    st.title("")
 
 
 #Menu Lateral
