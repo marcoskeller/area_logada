@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 #Include Google Analytics tracking code
-with open("./google_analytics.html", "r") as f:
+with open("google_analytics.html", "r") as f:
     html_code = f.read()
     components.html(html_code, height=0)
     st.title("")
