@@ -12,7 +12,7 @@ def gerar_df():
         engine="openpyxl",
         sheet_name="Encaminhamento Imuno",
         usecols="A:H",
-        nrows=55
+        nrows=58
 
     )
     return df
