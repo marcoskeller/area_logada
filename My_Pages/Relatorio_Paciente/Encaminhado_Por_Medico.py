@@ -21,6 +21,16 @@ def gerar_df():
     return df
 
 
+##Para mostrar o total de pacientes encaminhados excluindos os pacientes testes
+def total_Pacientes_encaminhados_excluindo_Teste():
+    
+    total_pacientes = gerar_df()
+    
+    total_Pacientes_Encaminhados = total_pacientes[["Quantidade"]].sum()
+    
+    return total_Pacientes_Encaminhados[0]
+
+
 def pacienteEncaminhadoPorMedico():
     
     #Busca os Dados Gerados
@@ -95,8 +105,7 @@ def pacienteEncaminhadoPorMedico():
             print()
 
 
-    numeroTreinamentoRealizado = len(gerar_df())
-    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(numeroTreinamentoRealizado))
+    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(total_Pacientes_encaminhados_excluindo_Teste()))
 
     #Recebe o filtro que iremos utilizar
     selecaoPorNomeMedico(st.selectbox("Pacientes Encaminhados Por Médico", dadosUsuario["Nome do Médico"].unique(), None))
@@ -111,10 +120,8 @@ def pacienteEncaminhadoPorMedico():
     quantidadePacienteEncaminhadoPorMedico(st.selectbox("Exibir Quatidade de Pacientes Encaminhados Por Médico", options=opcao))
 
 
-
 def analisePacienteEncaminhadoPorMedico():
     pacienteEncaminhadoPorMedico()
-
 
 
 def paginaPacienteEncaminhado():

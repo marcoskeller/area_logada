@@ -18,6 +18,15 @@ def gerar_df():
     return df
 
 
+##Para mostrar o total de pacientes encaminhados excluindos os pacientes testes
+def total_Pacientes_encaminhados_excluindo_Teste():
+    
+    total_pacientes = gerar_df()
+    
+    total_Pacientes_Encaminhados = total_pacientes[["Quantidade"]].sum()
+    
+    return total_Pacientes_Encaminhados[0]
+
 #funcao Retornar pacientes por nome do medico
     def selecaoPorPraca(praca):
 
@@ -118,8 +127,7 @@ def filtroUteis():
 
     dadosUsuario = df
 
-    numeroTreinamentoRealizado = len(gerar_df())
-    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(numeroTreinamentoRealizado))
+    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(total_Pacientes_encaminhados_excluindo_Teste()))
 
     #Recebe o filtro que iremos utilizar
     selecaoPorPraca(st.selectbox("Pacientes Encaminhados Por Praça", dadosUsuario["UF do Médico"].unique(), None))

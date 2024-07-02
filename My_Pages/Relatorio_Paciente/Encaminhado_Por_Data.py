@@ -16,6 +16,17 @@ def gerar_df():
     )
     return df
 
+
+##Para mostrar o total de pacientes encaminhados excluindos os pacientes testes
+def total_Pacientes_encaminhados_excluindo_Teste():
+    
+    total_pacientes = gerar_df()
+    
+    total_Pacientes_Encaminhados = total_pacientes[["Quantidade"]].sum()
+    
+    return total_Pacientes_Encaminhados[0]
+
+
 def selecaoPorMes(opcao):
 
     if opcao == '2 - Exibir':
@@ -195,8 +206,8 @@ def filtroUteis():
     #Criacao de Variaveis
     opcao = ['1 - Ocultar', '2 - Exibir']
 
-    numeroTreinamentoRealizado = len(gerar_df())
-    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(numeroTreinamentoRealizado))
+    st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(total_Pacientes_encaminhados_excluindo_Teste()))
+    
     
     #Recebe o filtro que iremos utilizar
     selecaoPorMes(st.selectbox("Pacientes Encaminhados Por Mês", options=opcao))
