@@ -241,7 +241,7 @@ def numeroNaoTreinamentoRealizado():
     dadosUsuario['Data da realização do Treinamento'] = dadosUsuario['Data da realização do Treinamento'].dt.strftime('%m/%Y')
 
     dadosUsuario = df.loc[(
-            df['Treinamento'] != "REALIZADO")
+            df['Treinamento'] == "AGUARDANDO AGENDAMENTO")
         ]
     quantidadeTotalTreinamentoNaoRealizado =  len(dadosUsuario)
     
