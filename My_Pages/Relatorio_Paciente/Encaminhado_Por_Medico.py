@@ -72,19 +72,31 @@ def pacienteEncaminhadoPorMedico():
             #Cria um dataFrame com as colunas uteis
             df = df[colunaUteis] 
 
+            #Cria um dataFrame que sera tratado
             df_filtered = df
-                       
-            # Calcular os Pacientes Encaminhados Por Medico
+
+            ##Selecionando a Praça Primeiro
+            selecioneAno = list(df['UF do Médico'].unique())
+
+            st.sidebar.markdown('## Selecione o Estado')
+            estado = st.sidebar.selectbox('', options = selecioneAno)
+
+            ##Criando o dataframe somente com a praça desejada
+            ##Filtro Por Praça
+            df_filtered = df_filtered.loc[(
+                df_filtered['UF do Médico'] == str(estado))
+            ]
+
+                  
+            #Calcular os Pacientes Encaminhados Por Medico
             paciente_total = df_filtered.groupby("Nome do Médico")[["Quantidade"]].sum().reset_index()
 
-            # Criar o gráfico de barras para exibir o faturamento por cidade
-            fig_paciente = px.bar(paciente_total, x="Nome do Médico", y="Quantidade",
-            title="Quantidade Pacientes Encaminhados Por Médico")
-
+            #Criando o Grafico
+            fig_city = px.bar(paciente_total, x="Quantidade", y="Nome do Médico", title="Total de pacientes Encaminhados Por Médico")
             # Exibir o gráfico
-            st.plotly_chart(fig_paciente, use_container_width=True)    
+            st.plotly_chart(fig_city, use_container_width=True)
         else:
-            print()
+            st.write("Não foi possível realizar a operação!")
            
     def quantidadePacienteEncaminhadoPorMedico(opcao):
         if opcao == "2 - Exibir":
