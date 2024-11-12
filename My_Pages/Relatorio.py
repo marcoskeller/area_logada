@@ -4,7 +4,7 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 import My_Pages.Analise_Treinamento.Realizado as Treinamento_Realizado
 import My_Pages.Analise_Treinamento.AguardandoAgendamento as Aguardando_Agendamento
-import My_Pages.Analise_Treinamento.Agendado as Agendado
+
 
 #Funcao Para Exibir Cabecalho
 def inicioPagina():
