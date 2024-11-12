@@ -19,7 +19,7 @@ def gerar_df():
     )
     return df
 
-def treinamentoRealizadoPorPraca(estado):
+def treinamentoRealizadoPorPraca(opcao):
     #Chama funçao que obtem os dados
     df = gerar_df()
 
@@ -36,28 +36,19 @@ def treinamentoRealizadoPorPraca(estado):
     dadosUsuario["Data da realização do Treinamento"] = pd.to_datetime(df["Data da realização do Treinamento"], errors='coerce',utc=False)
     dadosUsuario['Data da realização do Treinamento'] = dadosUsuario['Data da realização do Treinamento'].dt.strftime('%m/%Y')
 
-    ##Plotagem do Grafico
-    ###Filtro Por Status do Treinamento
-    df_filtered = df[df["Praça"] == estado ]
 
-    dadosUsuario = df.loc[(
-        df['Praça'] == estado) &
-        (df['Treinamento'] == "Realizado")
+
+    #Filtro dos Status do Treinamento
+    dadosUsuario = df.loc[
+        (df['Treinamento'] == "REALIZADO")
     ]
 
-    #Exibicao do Grafico
-    if not estado:
-        print() 
+    #Exibicao do Resultado
+    if opcao == "2 - Exibir":
+        resultado = dadosUsuario.value_counts(dadosUsuario['Praça'])
+        st.write(resultado)
     else:
-        ##Contribuição por Estado
-        city_total = df_filtered.groupby("Praça")[["Quantidade Realizada"]].sum().reset_index()
-
-        # Criar o gráfico de barras para exibir o faturamento por cidade
-        fig_city = px.bar(city_total, x="Praça", y="Quantidade Realizada",
-        title="Quantidade Treinamento(s) Realizado Por Praça")
-
-        # Exibir o gráfico
-        st.plotly_chart(fig_city, use_container_width=True)
+        print()
     
 def treinamentoRealizadoPorData(data):
     #Chama funçao que obtem os dados
@@ -72,12 +63,12 @@ def treinamentoRealizadoPorData(data):
 
     dadosUsuario = df
 
-    #Parte que foi modficada
+    #Filtro da Praça dos Medicos Selecionadaos
     dadosUsuario = df.loc[
         (df['Treinamento'] == "REALIZADO")
     ]
 
-    
+
 
     #Conversao de Data
     dadosUsuario["Data da realização do Treinamento"] = pd.to_datetime(df["Data da realização do Treinamento"], errors='coerce',utc=False)
@@ -204,13 +195,13 @@ def filtroUteis():
 
     
     #Recebe o filtro que iremos utilizar
-    totalTreinamentoRealizados(st.selectbox("Total de Treinamento(s) Realizado(s) Por Praça", options=opcaoData))
+    totalTreinamentoRealizados(st.selectbox("Gráfico do Total de Treinamento(s) Realizado(s) Por Praça", options=opcaoData))
 
     #Recebe o filtro que iremos utilizar
-    treinamentoRealizadoPorPraca(st.selectbox("Treinamento(s) Realizado(s) Por Praça", dadosUsuario["Praça"].unique(), None))
+    treinamentoRealizadoPorPraca(st.selectbox("Total de Treinamento(s) Realizado(s) Por Praça", options=opcaoData))
 
     #Recebe o filtro que iremos utilizar
-    treinamentoRealizadoPorData(st.selectbox("Total de Treinamento(s) Realizado(s) Por Mês Até o Momento",opcaoData))
+    treinamentoRealizadoPorData(st.selectbox("Gráfico do Total de Treinamento(s) Realizado(s) Por Mês Até o Momento",opcaoData))
    
 def paginaRealizadoInicial():
     filtroUteis()
