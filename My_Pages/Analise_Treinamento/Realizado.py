@@ -62,13 +62,15 @@ def treinamentoRealizadoPorData(data):
     df = df[colunaUteis] 
 
     dadosUsuario = df
+    
 
     #Filtro da Praça dos Medicos Selecionadaos
     dadosUsuario = df.loc[
         (df['Treinamento'] == "REALIZADO")
     ]
 
-
+    dadosOrganizado = dadosUsuario
+    filtroMesAnoTeste = dadosUsuario
 
     #Conversao de Data
     dadosUsuario["Data da realização do Treinamento"] = pd.to_datetime(df["Data da realização do Treinamento"], errors='coerce',utc=False)
@@ -76,18 +78,79 @@ def treinamentoRealizadoPorData(data):
     dadosUsuario = dadosUsuario.sort_values("Data da realização do Treinamento")
 
 
-    ##Contribuição por Estado
-    quantidade_mes = dadosUsuario.groupby("Data da realização do Treinamento")[["Quantidade Realizada"]].sum().reset_index()
+    dadosUsuarioAno = dadosUsuario
 
-    #Quantidade de Treinamento Por Mes
-    #dadosUsuario = dadosUsuario.groupby("Praça")[["Quantidade Realizada"]].sum().reset_index()
-    fig_kind = px.bar(quantidade_mes, x="Data da realização do Treinamento", y="Quantidade Realizada",
-    title="Treinamento(s) Realizado(s) Por Mês Até o Presente")
-    
     if data == "2 - Exibir":
-        st.plotly_chart(fig_kind, use_container_width=True)    
+
+        #Filtro Para Mostrar o Ano
+        dadosUsuarioAno["Data da realização do Treinamento"] = pd.to_datetime(df["Data da realização do Treinamento"], errors='coerce',utc=False, dayfirst=True)
+        dadosUsuarioAno['Data da realização do Treinamento'] = dadosUsuarioAno['Data da realização do Treinamento'].dt.strftime('%Y')
+        dadosUsuarioAno = dadosUsuarioAno.sort_values("Data da realização do Treinamento")
+        selecioneAno = list(dadosUsuarioAno['Data da realização do Treinamento'].unique())
+        
+        st.sidebar.markdown('## Escolha o Ano')
+        ano = st.sidebar.selectbox('', options = selecioneAno)
+
+        ##Filtro Por Ano Funcionando
+        #dadosUsuarioAno = dadosUsuarioAno.loc[(
+        #    dadosUsuarioAno['Data da realização do Treinamento'] == str(ano))
+        #]
+        
+        if ano != '':
+            filtroMesAno = dadosUsuario
+             
+            #Filtrando a Data
+            filtroMesAno["Data da realização do Treinamento"] = pd.to_datetime(dadosOrganizado["Data da realização do Treinamento"], errors='coerce', dayfirst=True)
+            filtroMesAno["Data da realização do Treinamento"] = filtroMesAno["Data da realização do Treinamento"].dt.strftime('%m/%Y')
+            filtroMesAno = filtroMesAno.sort_values("Data da realização do Treinamento")
+
+
+            # Criando nova coluna
+            filtroMesAno['Ano'] = '00/00/0000'
+
+            #Adcionando o Ano na nova coluna
+            filtroMesAno["Ano"] = pd.to_datetime(dadosOrganizado["Data da realização do Treinamento"], errors='coerce',dayfirst=True, utc=False)
+            filtroMesAno["Ano"] = pd.to_datetime(dadosOrganizado["Data da realização do Treinamento"], errors='coerce', dayfirst=True)
+            filtroMesAno["Ano"] = filtroMesAno["Ano"].dt.strftime('%Y')
+            filtroMesAno = filtroMesAno.sort_values("Ano")
+
+            #Filtro Para Trazer somente o Ano Desejado
+            filtroMesAno = filtroMesAno.loc[(
+                filtroMesAno['Ano'] == str(ano))
+            ]
+
+
+            ###Grafico Exibindo Apenas o Ano Informado
+            city_total = filtroMesAno.groupby("Data da realização do Treinamento")[["Quantidade Realizada"]].sum().reset_index()
+
+            #Grafico Barra
+            fig_city = px.bar(city_total, x="Data da realização do Treinamento", y="Quantidade Realizada",
+            title="Quantidade Treinamento(s) Realizado Mês")
+            
+            #Plotagem do Grafico
+            st.plotly_chart(fig_city, use_container_width=True)
+
+
+
+            # ###Grafico Exibindo Todos os Anos juntos
+            # ##Contribuição por Estado
+            # city_total = filtroMesAno.groupby("Data da realização do Treinamento")[["Quantidade Realizada"]].sum().reset_index()
+
+            # #Grafico Barra
+            # fig_city = px.bar(city_total, x="Data da realização do Treinamento", y="Quantidade Realizada",
+            # title="Quantidade Treinamento(s) Realizado Mês")
+            
+            # #Plotagem do Grafico
+            # st.plotly_chart(fig_city, use_container_width=True)
+
+        else:
+            st.write("É necessário selecionar o ano!")
+     
+
+
+        #st.plotly_chart(fig_kind, use_container_width=True) 
     else:
-        print()
+        print("Entrou no Else")
 
 def totalTreinamentoRealizados(status):
     #Chama funçao que obtem os dados
