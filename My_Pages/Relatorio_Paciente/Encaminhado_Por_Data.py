@@ -102,58 +102,6 @@ def graficoSelecaoPorMes(opcao):
             fig_city = px.bar(city_total, x="Data - Hora de abertura", y="Quantidade",
             title="Total de pacientes Encaminhados Por Mês Até o Presente")
             st.plotly_chart(fig_city, use_container_width=True)
-
-        #Filtros Exibicao dos Nomes dos Pacientes
-        checkbox_mostrar_tabela = st.sidebar.checkbox('Exibir Nome dos Pacientes Encaminhados')
-
-
-        if checkbox_mostrar_tabela:
-            #Seleciona somente as colunas uteis
-            colunaUteis = ['Nome do Paciente', 'Data - Hora de abertura','Unidade que recebe paciente encaminhado', 'Nome do Médico', 'CRM','UF do Médico']
-
-            #Cria um dataFrame com as colunas uteis
-            df = df[colunaUteis] 
-
-            dadosUsuario = df
-
-            #Exibicao do Dataframe filtrado
-            st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True) 
-    else:
-        print()
-
-def selecaoPorAno(opcao):
-    
-    if opcao == '2 - Exibir':
-        #Busca os Dados Gerados
-        df = gerar_df()
-
-        #Seleciona somente as colunas uteis
-        colunaUteis = ['Nome do Paciente', 'Data - Hora de abertura','Unidade que recebe paciente encaminhado', 'Nome do Médico', 'CRM','UF do Médico']
-                
-        #Cria um dataFrame com as colunas uteis
-        df = df[colunaUteis] 
-
-        dadosUsuarioAno = df
-
-        #Filtrando Por Ano
-        #df_filtered["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce',utc=False)
-        dadosUsuarioAno["Data - Hora de abertura"] = pd.to_datetime(df["Data - Hora de abertura"], errors='coerce', dayfirst=True)
-        dadosUsuarioAno['Data - Hora de abertura'] = dadosUsuarioAno['Data - Hora de abertura'].dt.strftime('%Y')
-        dadosUsuarioAno = dadosUsuarioAno.sort_values("Data - Hora de abertura")
-
-
-        selecioneAno = list(dadosUsuarioAno['Data - Hora de abertura'].unique())
-        
-        st.sidebar.markdown('## Escolha o Ano')
-        ano = st.sidebar.selectbox('', options = selecioneAno)
-
-        ##Filtro Por Ano Funcionando
-        dadosUsuarioAno = dadosUsuarioAno.loc[(
-            dadosUsuarioAno['Data - Hora de abertura'] == str(ano))
-        ]
-
-        #Exibicao do Dataframe filtrado
-        st.dataframe(dadosUsuarioAno.astype(str), use_container_width=True, hide_index=True)
     else:
         print()
 
@@ -184,21 +132,6 @@ def graficoSelecaoPorAno(opcao):
         fig_city = px.bar(city_total, x="Data - Hora de abertura", y="Quantidade",
         title="Quantidade Pacientes Encaminhados Por Ano")
         st.plotly_chart(fig_city, use_container_width=True)
-
-        #Filtros Exibicao dos Nomes dos Pacientes
-        checkbox_mostrar_tabela = st.sidebar.checkbox('Exibir Nome dos Pacientes Encaminhados')
-
-        if checkbox_mostrar_tabela:
-            #Seleciona somente as colunas uteis
-            colunaUteis = ['Nome do Paciente', 'Data - Hora de abertura','Unidade que recebe paciente encaminhado', 'Nome do Médico', 'CRM','UF do Médico']
-
-            #Cria um dataFrame com as colunas uteis
-            df = df[colunaUteis] 
-
-            dadosUsuario = df
-
-            #Exibicao do Dataframe filtrado
-            st.dataframe(dadosUsuario.astype(str), use_container_width=True, hide_index=True) 
     else:
         print()
 
@@ -207,16 +140,12 @@ def filtroUteis():
     opcao = ['1 - Ocultar', '2 - Exibir']
 
     st.markdown('**Total de Paciente(s) Encaminhado(s):** ' + str(total_Pacientes_encaminhados_excluindo_Teste()))
-    
-    
+
     #Recebe o filtro que iremos utilizar
     selecaoPorMes(st.selectbox("Pacientes Encaminhados Por Mês", options=opcao))
 
     #filtro por Mes
     graficoSelecaoPorMes(st.selectbox("Grafico de Pacientes Encaminhados Por Mês", options=opcao))
-   
-    #filtro por Ano
-    selecaoPorAno(st.selectbox("Pacientes Encaminhados Por Ano", options=opcao))
 
     #filtro por Ano
     graficoSelecaoPorAno(st.selectbox("Grafico de Pacientes Encaminhados Por Ano", options=opcao))
