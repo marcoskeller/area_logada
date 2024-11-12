@@ -4,7 +4,6 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 import My_Pages.Analise_Treinamento.Realizado as Treinamento_Realizado
 import My_Pages.Analise_Treinamento.AguardandoAgendamento as Aguardando_Agendamento
-import My_Pages.Analise_Treinamento.NaoCompareceu as Nao_Compareceu
 import My_Pages.Analise_Treinamento.Agendado as Agendado
 
 #Funcao Para Exibir Cabecalho
@@ -17,7 +16,7 @@ def inicioPagina():
 def cabecalhoPagina():
     
     #3. CSS style definitions
-    selected3 = option_menu(None, ["Realizado", "Aguardando",  "Não Compareceu", 'Agendado'], 
+    selected3 = option_menu(None, ["Realizado", "Aguardando", 'Agendado'], 
         icons=['bi bi-clipboard2-check-fill', 'bi bi-clock', "bi bi-exclamation-diamond", 'bi bi-calendar-check-fill'], 
         menu_icon="cast", default_index=0, orientation="horizontal",
         styles={
@@ -45,10 +44,7 @@ def analiseTreinamentoRealizado():
 
     if resultado == "Aguardando":
         Aguardando_Agendamento.paginaAguardandoAgendamento()
-    
-    if resultado == "Não Compareceu":
-        Nao_Compareceu.paginaNaoCompareceu()
-    
+       
     if resultado == "Agendado":
         Agendado.paginaAgendado()
 
