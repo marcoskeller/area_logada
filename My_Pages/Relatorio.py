@@ -16,7 +16,7 @@ def inicioPagina():
 def cabecalhoPagina():
     
     #3. CSS style definitions
-    selected3 = option_menu(None, ["Realizado", "Aguardando"], 
+    selected3 = option_menu(None, ["Realizado", "Aguardando Agendamento"], 
         icons=['bi bi-clipboard2-check-fill', 'bi bi-clock', "bi bi-exclamation-diamond", 'bi bi-calendar-check-fill'], 
         menu_icon="cast", default_index=0, orientation="horizontal",
         styles={
@@ -42,7 +42,7 @@ def analiseTreinamentoRealizado():
     if resultado == "Realizado":
        agendamentosRealizados() 
 
-    if resultado == "Aguardando":
+    if resultado == "Aguardando Agendamento":
         Aguardando_Agendamento.paginaAguardandoAgendamento()
        
 def paginaRelatorio():
