@@ -23,7 +23,7 @@ with open("google_analytics.html", "r") as f:
 with st.sidebar:
     selected=option_menu(
         menu_title="Menu", 
-        options=['Relatórios', 'Pacientes Encaminhados'], 
+        options=['Médicos - Treinamento Realizado', 'Pacientes Encaminhados'], 
         icons=['house', 'bi bi-calendar-week', 'bi bi-hospital', 'bi bi-clipboard-data'], 
         menu_icon = "cast", 
         default_index=0)
@@ -34,7 +34,7 @@ with st.sidebar:
 if selected == "Pacientes Encaminhados":
     Pacientes_Encaminhados.paginaPacienteEncaminhado()
 
-if selected == "Relatórios":
+if selected == "Médicos - Treinamento Realizado":
     Relatorio.paginaRelatorio()
 
 
